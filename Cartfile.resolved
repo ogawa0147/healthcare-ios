@@ -1,0 +1,8 @@
+github "AliSoftware/OHHTTPStubs" "8.0.0"
+github "Quick/Nimble" "v8.1.1"
+github "Quick/Quick" "v2.2.1"
+github "ReactiveX/RxSwift" "5.1.1"
+github "RxSwiftCommunity/Action" "4.1.0"
+github "RxSwiftCommunity/RxDataSources" "4.0.1"
+github "ishkawa/DIKit" "0.4.0"
+github "malcommac/SwiftDate" "6.1.0"

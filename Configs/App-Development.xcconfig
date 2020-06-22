@@ -1,0 +1,10 @@
+#include "Pods/Target Support Files/Pods-Healthcare/Pods-Healthcare.debug.xcconfig"
+#include "App-Base.xcconfig"
+
+SWIFT_COMPILATION_MODE = singlefile
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+CODE_SIGN_IDENTITY = Apple Development
+DISPLAY_NAME = Healthcare
+PRODUCT_BUNDLE_IDENTIFIER = jp.healthcare
+PROVISIONING_PROFILE_SPECIFIER = match Development jp.healthcare
+CODE_SIGN_ENTITLEMENTS = Healthcare/Entitlements/Development.entitlements

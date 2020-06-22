@@ -1,0 +1,27 @@
+included:
+  - Healthcare
+
+excluded:
+  - Carthage
+  - Pods
+  - .bundle
+  - Healthcare/AppResolver.generated.swift
+  - HealthcareTests
+
+disabled_rules:
+  - line_length
+  - empty_enum_arguments
+  - force_try
+  - large_tuple
+  - type_body_length
+  - file_length
+  - type_name
+
+identifier_name:
+  excluded:
+    - id
+    - ID
+    - x
+    - y
+    - r
+    - th

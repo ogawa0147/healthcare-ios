@@ -1,0 +1,19 @@
+ib:
+  inputs:
+    - Healthcare/Scenes/
+  outputs:
+    - templateName: scenes-swift4
+      output: Healthcare/Generated/StoryboardScenes.swift
+xcassets:
+  inputs:
+    - Healthcare/Resources/Assets.xcassets
+    - Healthcare/Resources/Colors.xcassets
+  outputs:
+    - templateName: swift4
+      output: Healthcare/Generated/Assets.swift
+strings:
+  inputs:
+    - Healthcare/Resources/Localizable/Base.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift4
+      output: Healthcare/Generated/Localizable.swift

@@ -1,0 +1,8 @@
+github:
+  - owner: mono0926
+    name: LicensePlist
+    version: 2.8.1
+exclude:
+  - Quick
+  - Nimble
+  - OHHTTPStubs

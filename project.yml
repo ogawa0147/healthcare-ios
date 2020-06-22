@@ -1,0 +1,189 @@
+name: Healthcare
+configs:
+  Debug: debug
+  Release: release
+options:
+  defaultConfig: Release
+  deploymentTarget: [iOS]
+  developmentLanguage: en
+  xcodeVersion: 11.0
+  transitivelyLinkDependencies: true
+  groupSortPosition: bottom
+  minimumXcodeGenVersion: 2.16.0
+attributes: {
+}
+configFiles:
+  Debug: Configs/Development.xcconfig
+  Release: Configs/Production.xcconfig
+schemes:
+  Development:
+    build:
+      targets:
+        Healthcare: all
+    run:
+      config: Debug
+      commandLineArguments:
+        "-FIRAnalyticsDebugEnabled": true
+      environmentVariables:
+        - variable: OS_ACTIVITY_MODE
+          value: disable
+          isEnabled: true
+    test:
+      config: Debug
+      targets:
+        - name: HealthcareTests
+        - name: DomainTests
+    profile:
+      config: Debug
+    archive:
+      config: Debug
+  Production:
+    build:
+      targets:
+        Healthcare: all
+    run:
+      config: Release
+      commandLineArguments:
+        "-noFIRAnalyticsDebugEnabled": true
+      environmentVariables:
+        - variable: OS_ACTIVITY_MODE
+          value: disable
+          isEnabled: false
+    test:
+      config: Release
+      targets:
+        - name: HealthcareTests
+        - name: DomainTests
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+targets:
+  Healthcare:
+    type: application
+    platform: iOS
+    sources:
+      - Healthcare
+    configFiles:
+      Debug: Configs/App-Development.xcconfig
+      Release: Configs/App-Production.xcconfig
+    dependencies:
+      - target: Environments
+      - target: Logger
+      - target: Domain
+      - carthage: RxSwift
+      - carthage: RxCocoa
+      - carthage: RxRelay
+      - carthage: RxDataSources
+      - carthage: Differentiator
+      - carthage: DIKit
+      - carthage: Action
+      - carthage: SwiftDate
+    prebuildScripts:
+      - name: Run LicensePlist
+        script: |
+          ${SRCROOT}/Pods/LicensePlist/license-plist --output-path Healthcare/Settings.bundle --config-path license_plist.yml --single-page
+      - name: Run SwiftLint
+        script: |
+          if which swiftlint >/dev/null; then
+            swiftlint --no-cache
+          fi
+      - name: Run SwiftGen
+        script: |
+          if which swiftgen >/dev/null; then
+            swiftgen
+          fi
+      - name: Run DIKitGen
+        script: |
+          if which dikitgen >/dev/null; then
+            dikitgen ${SRCROOT}/Healthcare --exclude Carthage > Healthcare/AppResolver.generated.swift
+          fi
+      - name: Run CopyBundleResources
+        script: |
+          version=$(/usr/libexec/PlistBuddy -c "Print CFBundleShortVersionString" "Healthcare/Info.plist")
+          /usr/libexec/PlistBuddy -c "Set PreferenceSpecifiers:1:DefaultValue $version" "Healthcare/Settings.bundle/Root.plist"
+  Domain:
+    type: framework
+    platform: iOS
+    sources:
+      - Domain
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.domain
+      INFOPLIST_FILE: Domain/Info.plist
+    scheme:
+      testTargets:
+        - DomainTests
+    dependencies:
+      - target: Environments
+      - target: Logger
+      - carthage: RxSwift
+      - carthage: RxCocoa
+      - carthage: RxRelay
+      - carthage: DIKit
+      - carthage: Action
+      - carthage: SwiftDate
+    prebuildScripts:
+      - name: Run DIKitGen
+        script: |
+          if which dikitgen >/dev/null; then
+            dikitgen ${SRCROOT}/Domain --exclude Carthage > Domain/DomainResolver.generated.swift
+          fi
+  Environments:
+    type: framework
+    platform: iOS
+    sources: Environments
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.environments
+      INFOPLIST_FILE: Environments/Info.plist
+  Logger:
+    type: framework
+    platform: iOS
+    sources:
+      - Logger
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.logger
+      INFOPLIST_FILE: Logger/Info.plist
+  HealthcareTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - HealthcareTests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.tests
+      INFOPLIST_FILE: HealthcareTests/Info.plist
+      CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - target: Healthcare
+      - carthage: Quick
+      - carthage: Nimble
+      - carthage: OHHTTPStubs
+  HealthcareUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - HealthcareUITests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.ui-tests
+      INFOPLIST_FILE: HealthcareUITests/Info.plist
+      CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - target: Healthcare
+      - carthage: Quick
+      - carthage: Nimble
+      - carthage: OHHTTPStubs
+  DomainTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - DomainTests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.domain-tests
+      INFOPLIST_FILE: DomainTests/Info.plist
+      CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - target: Healthcare
+      - target: Domain
+      - carthage: Quick
+      - carthage: Nimble
