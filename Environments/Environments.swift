@@ -5,7 +5,6 @@ public final class Environments {
 
     var enviroment: Environment = .production
 
-    // swiftlint:disable identifier_name
     public enum Environment {
         case development
         case production

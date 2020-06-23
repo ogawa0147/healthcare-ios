@@ -17,7 +17,7 @@ final class HealthKitProvider: HealthKitType {
 
     func requestAuthorization(_ completion: @escaping (Error?, Bool) -> Void) {
         let type: Set<HKSampleType> = [
-            HKSampleType.quantityType(forIdentifier: .stepCount)!,
+            HKSampleType.quantityType(forIdentifier: .stepCount)!
         ]
         store.requestAuthorization(toShare: nil, read: type) { result, error in
             if result {
@@ -45,7 +45,7 @@ final class HealthKitProvider: HealthKitType {
             }
             let sourcesPredicate = HKQuery.predicateForObjects(from: Set(sources))
             let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [datePredicate, sourcesPredicate])
-            let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: .cumulativeSum) { query, data, error in
+            let query = HKStatisticsQuery(quantityType: type, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, data, error in
                 if let error = error {
                     Logger.error("sample query error. \(error.localizedDescription)")
                     return completion(error, nil)

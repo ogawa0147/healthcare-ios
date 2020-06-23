@@ -1,12 +1,18 @@
 included:
   - Healthcare
+  - Domain
+  - Environments
+  - Logger
 
 excluded:
   - Carthage
   - Pods
   - .bundle
   - Healthcare/AppResolver.generated.swift
+  - Domain/DomainResolver.generated.swift
   - HealthcareTests
+  - HealthcareUITests
+  - DomainTests
 
 disabled_rules:
   - line_length

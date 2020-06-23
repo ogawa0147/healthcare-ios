@@ -18,6 +18,13 @@ final class HomeViewController: UIViewController, FactoryMethodInjectable {
     private var dependency: Dependency!
     private let disposeBag = DisposeBag()
 
+    @IBOutlet weak private var scrollView: UIScrollView!
+    @IBOutlet weak private var contentView: UIStackView!
+
+    private struct Contents {
+        static let stepCountOfMonthView: HomeStepCountOfMonthView = .makeInstance()
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -25,14 +32,32 @@ final class HomeViewController: UIViewController, FactoryMethodInjectable {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = L10n.homeTitle
+        configureContentView()
         bindViewModel()
     }
 
+    private func configureContentView() {
+        scrollView.refreshControl = UIRefreshControl(configuration: .init())
+        contentView.addArrangedSubview(Contents.stepCountOfMonthView)
+    }
+
     private func bindViewModel() {
+        let refreshTrigger = Driver.merge(
+            rx.viewWillAppear.take(1).asDriver(onErrorDriveWith: .empty()),
+            scrollView.refreshControl!.rx.controlEvent(.valueChanged).asDriver()
+        )
         let input = HomeViewModel.Input(
             disposeBag: disposeBag,
-            refreshTrigger: rx.viewWillAppear.take(1).asDriver(onErrorDriveWith: .empty())
+            refreshTrigger: refreshTrigger
         )
         let output = dependency.viewModel.transform(input: input)
+        output.sampleOfMonth
+            .drive(onNext: { sample in
+                Contents.stepCountOfMonthView.bind(.init(element: sample))
+            })
+            .disposed(by: disposeBag)
+        output.refreshing
+            .drive(scrollView.refreshControl!.rx.isRefreshing)
+            .disposed(by: disposeBag)
     }
 }

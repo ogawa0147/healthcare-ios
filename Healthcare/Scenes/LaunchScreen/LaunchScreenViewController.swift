@@ -18,12 +18,11 @@ final class LaunchScreenViewController: UIViewController, FactoryMethodInjectabl
     private let disposeBag = DisposeBag()
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = Asset.Colors.navigationBar.color
         bindViewModel()
     }
 

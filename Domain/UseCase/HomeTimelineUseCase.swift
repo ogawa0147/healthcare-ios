@@ -35,7 +35,7 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
         let sampleSubject = PublishSubject<QuantitySampleOfMonth>()
         self.sample = sampleSubject.asObservable()
 
-        let refreshAction: Action<Void, QuantitySampleOfMonth> = Action { date in
+        let refreshAction: Action<Void, QuantitySampleOfMonth> = Action { _ in
             return Observable.create { observer in
                 dependency.health.getMonthOfStepCount { error, result in
                     if let result = result {
@@ -57,6 +57,14 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
 
         refreshAction.elements
             .subscribe(onNext: sampleSubject.onNext)
+            .disposed(by: disposeBag)
+
+        refreshAction.executing
+            .subscribe(refreshingSubject)
+            .disposed(by: disposeBag)
+
+        refreshAction.underlyingError
+            .subscribe(errorSubject)
             .disposed(by: disposeBag)
     }
 }
