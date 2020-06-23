@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="KbI-8Y-CDZ" customClass="HomeStepCountOfMonthView" customModule="Healthcare" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="KbI-8Y-CDZ" customClass="HomeActivityOfMonthView" customModule="Healthcare" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="168"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -21,7 +21,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hDc-U3-SPb">
                     <rect key="frame" x="15" y="0.0" width="345" height="168"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hallway" translatesAutoresizingMaskIntoConstraints="NO" id="NVw-D9-pbs">
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NVw-D9-pbs">
                             <rect key="frame" x="0.0" y="0.0" width="168" height="168"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="NVw-D9-pbs" secondAttribute="height" multiplier="1:1" id="Dt5-R7-88o"/>
@@ -39,8 +39,8 @@
                             <color key="textColor" name="DarkThemeLabel"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Counts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OjO-9N-LyQ">
-                            <rect key="frame" x="216.5" y="57" width="55" height="20.5"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OjO-9N-LyQ">
+                            <rect key="frame" x="216.5" y="57" width="8" height="20.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" name="DarkThemeLabel"/>
                             <nil key="highlightedColor"/>
@@ -86,23 +86,23 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="qRR-sW-t2l"/>
             <connections>
+                <outlet property="activityLabel" destination="L6z-4k-h9e" id="e53-C2-vXM"/>
+                <outlet property="activityUnitLabel" destination="OjO-9N-LyQ" id="si6-v7-IHl"/>
                 <outlet property="contentShadowView" destination="w8B-ni-v1R" id="uvB-4p-xm9"/>
                 <outlet property="contentView" destination="hDc-U3-SPb" id="a1v-WS-kdQ"/>
                 <outlet property="dateLabel" destination="u9Q-rh-Kk0" id="KID-RF-m1f"/>
-                <outlet property="stepCountLabel" destination="L6z-4k-h9e" id="Rog-QE-0z3"/>
-                <outlet property="stepCountUnitLabel" destination="OjO-9N-LyQ" id="4pc-ZK-7v2"/>
                 <outlet property="timestampLabel" destination="USI-Qx-KQY" id="70G-cS-15o"/>
+                <outlet property="typeImageView" destination="NVw-D9-pbs" id="ILh-4c-IuZ"/>
             </connections>
             <point key="canvasLocation" x="-136.80000000000001" y="30.584707646176913"/>
         </view>
     </objects>
     <resources>
-        <image name="hallway" width="846" height="564"/>
         <namedColor name="DarkTheme">
-            <color red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="DarkThemeLabel">
-            <color red="0.12984204290000001" green="0.12984612579999999" blue="0.12984395030000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.12999999523162842" green="0.12999999523162842" blue="0.12999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

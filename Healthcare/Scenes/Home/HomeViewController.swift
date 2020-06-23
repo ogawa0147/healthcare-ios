@@ -22,7 +22,8 @@ final class HomeViewController: UIViewController, FactoryMethodInjectable {
     @IBOutlet weak private var contentView: UIStackView!
 
     private struct Contents {
-        static let stepCountOfMonthView: HomeStepCountOfMonthView = .makeInstance()
+        static let stepCountOfMonthView: HomeActivityOfMonthView = .makeInstance()
+        static let distanceWalkingRunningOfMonthView: HomeActivityOfMonthView = .makeInstance()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -39,6 +40,7 @@ final class HomeViewController: UIViewController, FactoryMethodInjectable {
     private func configureContentView() {
         scrollView.refreshControl = UIRefreshControl(configuration: .init())
         contentView.addArrangedSubview(Contents.stepCountOfMonthView)
+        contentView.addArrangedSubview(Contents.distanceWalkingRunningOfMonthView)
     }
 
     private func bindViewModel() {
@@ -51,9 +53,14 @@ final class HomeViewController: UIViewController, FactoryMethodInjectable {
             refreshTrigger: refreshTrigger
         )
         let output = dependency.viewModel.transform(input: input)
-        output.sampleOfMonth
-            .drive(onNext: { sample in
-                Contents.stepCountOfMonthView.bind(.init(element: sample))
+        output.stepCountOfMonth
+            .drive(onNext: { element in
+                Contents.stepCountOfMonthView.bind(.init(element: element))
+            })
+            .disposed(by: disposeBag)
+        output.distanceWalkingRunningOfMonth
+            .drive(onNext: { element in
+                Contents.distanceWalkingRunningOfMonthView.bind(.init(element: element))
             })
             .disposed(by: disposeBag)
         output.refreshing
