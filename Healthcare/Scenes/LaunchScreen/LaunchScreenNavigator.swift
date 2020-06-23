@@ -21,7 +21,21 @@ final class LaunchScreenNavigatorImpl: LaunchScreenNavigator, Injectable {
     }
 
     func makeMainWindow() {
-        Application.shared.makeMainWindow(UIApplication.shared.keyWindow)
+        let homeNavigationController = UINavigationController()
+        homeNavigationController.tabBarItem = UITabBarItem(title: L10n.tabBarHomeTitle, image: nil, selectedImage: nil)
+        homeNavigationController.shadowNavigationBar()
+        let homeNavigator = dependency.resolver.resolveHomeNavigatorImpl(navigationController: homeNavigationController)
+
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [
+            homeNavigationController
+        ]
+
+        homeNavigator.toMain()
+
+        let previousViewController = dependency.window?.rootViewController
+        dependency.window?.rootViewController = tabBarController
+        previousViewController?.dismiss(animated: false)
     }
 
     func showLaunchScreen() {

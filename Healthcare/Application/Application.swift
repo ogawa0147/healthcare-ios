@@ -43,25 +43,4 @@ final class Application {
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()
     }
-
-    func makeMainWindow(_ window: UIWindow?) {
-        let homeNavigationController = UINavigationController()
-        homeNavigationController.tabBarItem = UITabBarItem(title: L10n.tabBarHomeTitle, image: nil, selectedImage: nil)
-        let homeNavigator = resolver.resolveHomeNavigatorImpl(navigationController: homeNavigationController)
-
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [
-            homeNavigationController
-        ]
-
-        homeNavigator.toMain()
-
-        let previousViewController = window?.rootViewController
-        window?.frame = UIScreen.main.bounds
-        window?.backgroundColor = .clear
-        window?.windowLevel = UIWindow.Level.statusBar + 1
-        window?.rootViewController = tabBarController
-        previousViewController?.dismiss(animated: false)
-        window?.makeKeyAndVisible()
-    }
 }
