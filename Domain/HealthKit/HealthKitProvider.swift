@@ -52,6 +52,7 @@ final class HealthKitProvider: HealthKitType {
                 sources: data.sources ?? [],
                 sumQuantity: data.sumQuantity()?.doubleValue(for: HKUnit.count()) ?? 0
             )
+            Logger.debug("step count data. \(sample)")
             return completion(nil, sample)
         }
     }
@@ -74,6 +75,7 @@ final class HealthKitProvider: HealthKitType {
                 sources: data.sources ?? [],
                 sumQuantity: data.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0
             )
+            Logger.debug("distance walking running data. \(sample)")
             return completion(nil, sample)
         }
     }
@@ -81,11 +83,11 @@ final class HealthKitProvider: HealthKitType {
     func getMonthOfDistanceCycling(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void) {
         fetchMonthSample(of: .distanceCycling) { error, type, data in
             if let error = error {
-                Logger.error("distance walking running query error. \(error.localizedDescription)")
+                Logger.error("distance cycling query error. \(error.localizedDescription)")
                 return completion(error, nil)
             }
             guard let data = data else {
-                Logger.error("distance walking running data not found.")
+                Logger.error("distance cycling data not found.")
                 return completion(HealthKitError.noData, nil)
             }
             let sample = QuantitySampleOfMonth(
@@ -96,6 +98,7 @@ final class HealthKitProvider: HealthKitType {
                 sources: data.sources ?? [],
                 sumQuantity: data.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0
             )
+            Logger.debug("distance cycling data. \(sample)")
             return completion(nil, sample)
         }
     }
