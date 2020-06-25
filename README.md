@@ -12,7 +12,7 @@ $ bundle exec fastlane init
 
 ```
 $ brew bundle
-$ carthage bootstrap --platform ios
+$ carthage build --platform iOS --cache-builds
 $ bundle install --path .bundle
 $ bundle exec fastlane bootstrap
 ```

@@ -61,5 +61,10 @@ final class HomeActivityOfMonthView: UIView {
         default:
             fatalError()
         }
+        if dependency.element.sumQuantity.isZero {
+            dateLabel.text = L10n.homeNoDataActivityText
+            activityLabel.text = "0"
+            timestampLabel.text = "00:00-00:00"
+        }
     }
 }

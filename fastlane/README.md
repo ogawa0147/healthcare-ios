@@ -31,6 +31,16 @@ Submit a new Beta Build to App Distribution
 fastlane ios certificates
 ```
 Sync certificates and profiles across team using git
+### ios versions
+```
+fastlane ios versions
+```
+Show current command version
+### ios update
+```
+fastlane ios update
+```
+Update command version
 
 ----
 

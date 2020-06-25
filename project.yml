@@ -9,7 +9,7 @@ options:
   xcodeVersion: 11.0
   transitivelyLinkDependencies: true
   groupSortPosition: bottom
-  minimumXcodeGenVersion: 2.16.0
+  minimumXcodeGenVersion: 2.15.1
 attributes: {
 }
 configFiles:
