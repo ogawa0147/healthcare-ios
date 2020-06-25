@@ -7,6 +7,7 @@ public protocol HealthKitType {
     func requestAuthorization(_ completion: @escaping (Error?, Bool) -> Void)
     func getMonthOfStepCount(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void)
     func getMonthOfDistanceWalkingRunning(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void)
+    func getMonthOfDistanceCycling(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void)
 }
 
 final class HealthKitProvider: HealthKitType {
@@ -19,7 +20,8 @@ final class HealthKitProvider: HealthKitType {
     func requestAuthorization(_ completion: @escaping (Error?, Bool) -> Void) {
         let type: Set<HKSampleType> = [
             HKSampleType.quantityType(forIdentifier: .stepCount)!,
-            HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)!
+            HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+            HKSampleType.quantityType(forIdentifier: .distanceCycling)!
         ]
         store.requestAuthorization(toShare: nil, read: type) { result, error in
             if result {
@@ -56,6 +58,28 @@ final class HealthKitProvider: HealthKitType {
 
     func getMonthOfDistanceWalkingRunning(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void) {
         fetchMonthSample(of: .distanceWalkingRunning) { error, type, data in
+            if let error = error {
+                Logger.error("distance walking running query error. \(error.localizedDescription)")
+                return completion(error, nil)
+            }
+            guard let data = data else {
+                Logger.error("distance walking running data not found.")
+                return completion(HealthKitError.noData, nil)
+            }
+            let sample = QuantitySampleOfMonth(
+                startDate: data.startDate,
+                endDate: data.endDate,
+                quantityType: data.quantityType,
+                quantityTypeId: type,
+                sources: data.sources ?? [],
+                sumQuantity: data.sumQuantity()?.doubleValue(for: HKUnit.meter()) ?? 0
+            )
+            return completion(nil, sample)
+        }
+    }
+
+    func getMonthOfDistanceCycling(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void) {
+        fetchMonthSample(of: .distanceCycling) { error, type, data in
             if let error = error {
                 Logger.error("distance walking running query error. \(error.localizedDescription)")
                 return completion(error, nil)

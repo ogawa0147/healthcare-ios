@@ -17,6 +17,7 @@ final class HomeViewModel: ViewModelType, Injectable {
     struct Output {
         let stepCountOfMonth: Driver<Domain.QuantitySampleOfMonth>
         let distanceWalkingRunningOfMonth: Driver<Domain.QuantitySampleOfMonth>
+        let distanceCyclingOfMonth: Driver<Domain.QuantitySampleOfMonth>
         let refreshing: Driver<Bool>
         let errors: Driver<Domain.DomainError>
     }
@@ -33,6 +34,7 @@ final class HomeViewModel: ViewModelType, Injectable {
         let authorized = dependency.authorizationUseCase.authorized
         let stepCountOfMonth = dependency.homeTimelineUseCase.stepCount
         let distanceWalkingRunningOfMonth = dependency.homeTimelineUseCase.distanceWalkingRunning
+        let distanceCyclingOfMonth = dependency.homeTimelineUseCase.distanceCycling
 
         input.refreshTrigger.asObservable()
             .subscribe(onNext: dependency.homeTimelineUseCase.refreshTrigger.onNext)
@@ -49,6 +51,7 @@ final class HomeViewModel: ViewModelType, Injectable {
         return Output(
             stepCountOfMonth: stepCountOfMonth.asDriver(onErrorDriveWith: .empty()),
             distanceWalkingRunningOfMonth: distanceWalkingRunningOfMonth.asDriver(onErrorDriveWith: .empty()),
+            distanceCyclingOfMonth: distanceCyclingOfMonth.asDriver(onErrorDriveWith: .empty()),
             refreshing: refreshing.asDriver(onErrorJustReturn: false),
             errors: errors.asDriver(onErrorDriveWith: .empty())
         )

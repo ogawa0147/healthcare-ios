@@ -47,7 +47,13 @@ final class HomeActivityOfMonthView: UIView {
             activityUnitLabel.text = L10n.pluralsFormatSmartdrivePointsUnit(of: Int(dependency.element.sumQuantity))
             timestampLabel.text = "\(dependency.element.startDate.toHourMinute()) - \(dependency.element.endDate.toHourMinute())"
         case .distanceWalkingRunning:
-            typeImageView.image = Asset.Assets.distance.image
+            typeImageView.image = Asset.Assets.running.image
+            dateLabel.text = dependency.element.startDate.toYearMonthDayWeek()
+            activityLabel.text = NumberFormatter.convert(of: dependency.element.sumQuantity, maximum: 2, divide: 1000.0)
+            activityUnitLabel.text = MeasurementFormatter.unitName(of: .kilometers)
+            timestampLabel.text = "\(dependency.element.startDate.toHourMinute()) - \(dependency.element.endDate.toHourMinute())"
+        case .distanceCycling:
+            typeImageView.image = Asset.Assets.bicycle.image
             dateLabel.text = dependency.element.startDate.toYearMonthDayWeek()
             activityLabel.text = NumberFormatter.convert(of: dependency.element.sumQuantity, maximum: 2, divide: 1000.0)
             activityUnitLabel.text = MeasurementFormatter.unitName(of: .kilometers)

@@ -12,6 +12,7 @@ public protocol HomeTimelineUseCase {
 
     var stepCount: Observable<QuantitySampleOfMonth> { get }
     var distanceWalkingRunning: Observable<QuantitySampleOfMonth> { get }
+    var distanceCycling: Observable<QuantitySampleOfMonth> { get }
 }
 
 final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
@@ -26,6 +27,7 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
     public let errors: Observable<Error>
     public let stepCount: Observable<QuantitySampleOfMonth>
     public let distanceWalkingRunning: Observable<QuantitySampleOfMonth>
+    public let distanceCycling: Observable<QuantitySampleOfMonth>
 
     // swiftlint:disable function_body_length
     init(dependency: Dependency) {
@@ -40,6 +42,9 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
 
         let distanceWalkingRunningSubject = PublishSubject<QuantitySampleOfMonth>()
         self.distanceWalkingRunning = distanceWalkingRunningSubject.asObservable()
+
+        let distanceCyclingSubject = PublishSubject<QuantitySampleOfMonth>()
+        self.distanceCycling = distanceCyclingSubject.asObservable()
 
         let fetchMonthOfStepCountAction: Action<Void, QuantitySampleOfMonth> = Action { _ in
             return Observable.create { observer in
@@ -73,12 +78,32 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
             }
         }
 
+        let fetchMonthOfDistanceCyclingAction: Action<Void, QuantitySampleOfMonth> = Action { _ in
+            return Observable.create { observer in
+                dependency.health.getMonthOfDistanceCycling { error, result in
+                    if let result = result {
+                        observer.onNext(result)
+                        observer.onCompleted()
+                    } else {
+                        Logger.error(error?.convertAPIErrorToDomainError() ?? HealthKitError.noData)
+                        observer.onError(error ?? HealthKitError.noData)
+                        observer.onCompleted()
+                    }
+                }
+                return Disposables.create()
+            }
+        }
+
         refreshTrigger
             .subscribe(fetchMonthOfStepCountAction.inputs)
             .disposed(by: disposeBag)
 
         refreshTrigger
             .subscribe(fetchMonthOfDistanceWalkingRunningAction.inputs)
+            .disposed(by: disposeBag)
+
+        refreshTrigger
+            .subscribe(fetchMonthOfDistanceCyclingAction.inputs)
             .disposed(by: disposeBag)
 
         fetchMonthOfStepCountAction.elements
@@ -89,11 +114,15 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
             .subscribe(onNext: distanceWalkingRunningSubject.onNext)
             .disposed(by: disposeBag)
 
-        Observable.merge(fetchMonthOfStepCountAction.executing, fetchMonthOfDistanceWalkingRunningAction.executing)
+        fetchMonthOfDistanceCyclingAction.elements
+            .subscribe(onNext: distanceCyclingSubject.onNext)
+            .disposed(by: disposeBag)
+
+        Observable.merge(fetchMonthOfStepCountAction.executing, fetchMonthOfDistanceWalkingRunningAction.executing, fetchMonthOfDistanceCyclingAction.executing)
             .subscribe(refreshingSubject)
             .disposed(by: disposeBag)
 
-        Observable.merge(fetchMonthOfStepCountAction.underlyingError, fetchMonthOfDistanceWalkingRunningAction.underlyingError)
+        Observable.merge(fetchMonthOfStepCountAction.underlyingError, fetchMonthOfDistanceWalkingRunningAction.underlyingError, fetchMonthOfDistanceCyclingAction.underlyingError)
             .subscribe(errorSubject)
             .disposed(by: disposeBag)
     }
