@@ -1,23 +1,17 @@
 import Foundation
 import HealthKit
 import SwiftDate
+import Domain
 import Logger
 
-public protocol HealthKitType {
-    func requestAuthorization(_ completion: @escaping (Error?, Bool) -> Void)
-    func getMonthOfStepCount(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void)
-    func getMonthOfDistanceWalkingRunning(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void)
-    func getMonthOfDistanceCycling(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void)
-}
-
-final class HealthKitProvider: HealthKitType {
+public final class HealthKitProvider: Domain.HealthKitType {
     private let store: HKHealthStore
 
-    init() {
+    public init() {
         self.store = HKHealthStore()
     }
 
-    func requestAuthorization(_ completion: @escaping (Error?, Bool) -> Void) {
+    public func requestAuthorization(_ completion: @escaping (Error?, Bool) -> Void) {
         let type: Set<HKSampleType> = [
             HKSampleType.quantityType(forIdentifier: .stepCount)!,
             HKSampleType.quantityType(forIdentifier: .distanceWalkingRunning)!,
@@ -34,7 +28,7 @@ final class HealthKitProvider: HealthKitType {
         }
     }
 
-    func getMonthOfStepCount(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void) {
+    public func getMonthOfStepCount(_ completion: @escaping (Error?, Domain.QuantitySampleOfMonth?) -> Void) {
         fetchMonthSample(of: .stepCount) { error, type, data in
             if let error = error {
                 Logger.error("step count query error. \(error.localizedDescription)")
@@ -42,9 +36,9 @@ final class HealthKitProvider: HealthKitType {
             }
             guard let data = data else {
                 Logger.error("step count data not found.")
-                return completion(HealthKitError.noData, nil)
+                return completion(Domain.HealthKitError.noData, nil)
             }
-            let sample = QuantitySampleOfMonth(
+            let sample = Domain.QuantitySampleOfMonth(
                 startDate: data.startDate,
                 endDate: data.endDate,
                 quantityType: data.quantityType,
@@ -57,7 +51,7 @@ final class HealthKitProvider: HealthKitType {
         }
     }
 
-    func getMonthOfDistanceWalkingRunning(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void) {
+    public func getMonthOfDistanceWalkingRunning(_ completion: @escaping (Error?, Domain.QuantitySampleOfMonth?) -> Void) {
         fetchMonthSample(of: .distanceWalkingRunning) { error, type, data in
             if let error = error {
                 Logger.error("distance walking running query error. \(error.localizedDescription)")
@@ -65,9 +59,9 @@ final class HealthKitProvider: HealthKitType {
             }
             guard let data = data else {
                 Logger.error("distance walking running data not found.")
-                return completion(HealthKitError.noData, nil)
+                return completion(Domain.HealthKitError.noData, nil)
             }
-            let sample = QuantitySampleOfMonth(
+            let sample = Domain.QuantitySampleOfMonth(
                 startDate: data.startDate,
                 endDate: data.endDate,
                 quantityType: data.quantityType,
@@ -80,7 +74,7 @@ final class HealthKitProvider: HealthKitType {
         }
     }
 
-    func getMonthOfDistanceCycling(_ completion: @escaping (Error?, QuantitySampleOfMonth?) -> Void) {
+    public func getMonthOfDistanceCycling(_ completion: @escaping (Error?, Domain.QuantitySampleOfMonth?) -> Void) {
         fetchMonthSample(of: .distanceCycling) { error, type, data in
             if let error = error {
                 Logger.error("distance cycling query error. \(error.localizedDescription)")
@@ -88,9 +82,9 @@ final class HealthKitProvider: HealthKitType {
             }
             guard let data = data else {
                 Logger.error("distance cycling data not found.")
-                return completion(HealthKitError.noData, nil)
+                return completion(Domain.HealthKitError.noData, nil)
             }
-            let sample = QuantitySampleOfMonth(
+            let sample = Domain.QuantitySampleOfMonth(
                 startDate: data.startDate,
                 endDate: data.endDate,
                 quantityType: data.quantityType,

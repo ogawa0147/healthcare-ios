@@ -1,6 +1,7 @@
 import Foundation
 import DIKit
 import Domain
+import Infrastructure
 
 protocol AppResolver: DIKit.Resolver {
     func provideResolver() -> AppResolver
@@ -13,6 +14,6 @@ final class AppResolverImpl: AppResolver {
     }
 
     func provideUseCase() -> Domain.UseCase {
-        return UseCaseImpl()
+        return UseCaseImpl(health: HealthKitProvider())
     }
 }

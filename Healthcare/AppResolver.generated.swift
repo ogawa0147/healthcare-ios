@@ -7,6 +7,7 @@ import DIKit
 import Domain
 import Environments
 import Foundation
+import Infrastructure
 import RxCocoa
 import RxSwift
 import UIKit

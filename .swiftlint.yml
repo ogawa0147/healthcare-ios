@@ -1,6 +1,7 @@
 included:
   - Healthcare
   - Domain
+  - Infrastructure
   - Environments
   - Logger
 
@@ -13,6 +14,7 @@ excluded:
   - HealthcareTests
   - HealthcareUITests
   - DomainTests
+  - InfrastructureTests
 
 disabled_rules:
   - line_length

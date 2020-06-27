@@ -70,9 +70,10 @@ targets:
       Debug: Configs/App-Development.xcconfig
       Release: Configs/App-Production.xcconfig
     dependencies:
+      - target: Domain
+      - target: Infrastructure
       - target: Environments
       - target: Logger
-      - target: Domain
       - carthage: RxSwift
       - carthage: RxCocoa
       - carthage: RxRelay
@@ -130,6 +131,23 @@ targets:
           if which dikitgen >/dev/null; then
             dikitgen ${SRCROOT}/Domain --exclude Carthage > Domain/DomainResolver.generated.swift
           fi
+  Infrastructure:
+    type: framework
+    platform: iOS
+    sources:
+      - Infrastructure
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.infrastructure
+      INFOPLIST_FILE: Infrastructure/Info.plist
+    scheme:
+      testTargets:
+        - InfrastructureTests
+    dependencies:
+      - target: Domain
+      - target: Logger
+      - carthage: Realm
+      - carthage: RealmSwift
+      - carthage: SwiftDate
   Environments:
     type: framework
     platform: iOS
@@ -185,5 +203,19 @@ targets:
     dependencies:
       - target: Healthcare
       - target: Domain
+      - carthage: Quick
+      - carthage: Nimble
+  InfrastructureTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - InfrastructureTests
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: jp.healthcare.infrastructure-tests
+      INFOPLIST_FILE: InfrastructureTests/Info.plist
+      CODE_SIGN_STYLE: Automatic
+    dependencies:
+      - target: Healthcare
+      - target: Infrastructure
       - carthage: Quick
       - carthage: Nimble

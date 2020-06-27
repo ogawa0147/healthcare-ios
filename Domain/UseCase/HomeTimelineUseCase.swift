@@ -53,7 +53,7 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
                         observer.onNext(result)
                         observer.onCompleted()
                     } else {
-                        Logger.error(error?.convertAPIErrorToDomainError() ?? HealthKitError.noData)
+                        Logger.error(error?.convertToDomainError() ?? HealthKitError.noData)
                         observer.onError(error ?? HealthKitError.noData)
                         observer.onCompleted()
                     }
@@ -69,7 +69,7 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
                         observer.onNext(result)
                         observer.onCompleted()
                     } else {
-                        Logger.error(error?.convertAPIErrorToDomainError() ?? HealthKitError.noData)
+                        Logger.error(error?.convertToDomainError() ?? HealthKitError.noData)
                         observer.onError(error ?? HealthKitError.noData)
                         observer.onCompleted()
                     }
@@ -85,7 +85,7 @@ final class HomeTimelineCaseImpl: HomeTimelineUseCase, Injectable {
                         observer.onNext(result)
                         observer.onCompleted()
                     } else {
-                        Logger.error(error?.convertAPIErrorToDomainError() ?? HealthKitError.noData)
+                        Logger.error(error?.convertToDomainError() ?? HealthKitError.noData)
                         observer.onError(error ?? HealthKitError.noData)
                         observer.onCompleted()
                     }

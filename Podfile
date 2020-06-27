@@ -31,6 +31,14 @@ target 'Domain' do
   end
 end
 
+target 'Infrastructure' do
+  use_frameworks!
+
+  target 'InfrastructureTests' do
+    inherit! :search_paths
+  end
+end
+
 target 'Environments' do
   use_frameworks!
 end

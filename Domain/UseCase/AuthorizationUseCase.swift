@@ -42,7 +42,7 @@ final class AuthorizationUseCaseImpl: AuthorizationUseCase, Injectable {
                         observer.onNext(result)
                         observer.onCompleted()
                     } else {
-                        Logger.error(error?.convertAPIErrorToDomainError() ?? HealthKitError.notAuthorization)
+                        Logger.error(error?.convertToDomainError() ?? HealthKitError.notAuthorization)
                         observer.onNext(result)
                         observer.onCompleted()
                     }

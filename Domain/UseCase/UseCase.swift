@@ -10,8 +10,8 @@ public final class UseCaseImpl: UseCase {
 
     private let health: HealthKitType
 
-    public init() {
-        self.health = HealthKitProvider()
+    public init(health: HealthKitType) {
+        self.health = health
     }
 
     public func make() -> AuthorizationUseCase {
