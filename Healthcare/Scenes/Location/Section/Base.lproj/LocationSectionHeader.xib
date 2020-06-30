@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SD Metropolis Bold.ttf">
+            <string>SDMetropolis-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="c64-lD-pih" customClass="LocationSectionHeader" customModule="Healthcare" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u3C-Ez-abp">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmG-e0-uoy">
+                            <rect key="frame" x="16" y="10" width="100" height="40"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="31 July 2020" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHo-p1-fQL">
+                                    <rect key="frame" x="10" y="13" width="80" height="16.5"/>
+                                    <fontDescription key="fontDescription" name="SDMetropolis-Bold" family="SD Metropolis" pointSize="14"/>
+                                    <color key="textColor" red="0.0" green="0.65490196079999996" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="vHo-p1-fQL" secondAttribute="trailing" constant="10" id="68p-WQ-tDo"/>
+                                <constraint firstItem="vHo-p1-fQL" firstAttribute="top" relation="greaterThanOrEqual" secondItem="kmG-e0-uoy" secondAttribute="top" constant="5" id="9kh-bj-2uO"/>
+                                <constraint firstItem="vHo-p1-fQL" firstAttribute="centerY" secondItem="kmG-e0-uoy" secondAttribute="centerY" constant="1" id="KAR-WT-Jhm"/>
+                                <constraint firstItem="vHo-p1-fQL" firstAttribute="leading" secondItem="kmG-e0-uoy" secondAttribute="leading" constant="10" id="Wbg-rm-0ts"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vHo-p1-fQL" secondAttribute="bottom" constant="5" id="wpg-EH-isK"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="kmG-e0-uoy" firstAttribute="leading" secondItem="u3C-Ez-abp" secondAttribute="leading" constant="16" id="8f0-xc-tbT"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kmG-e0-uoy" secondAttribute="trailing" constant="16" id="Q95-AL-SHY"/>
+                        <constraint firstItem="kmG-e0-uoy" firstAttribute="top" secondItem="u3C-Ez-abp" secondAttribute="top" constant="10" id="kD9-p7-lrg"/>
+                        <constraint firstAttribute="bottom" secondItem="kmG-e0-uoy" secondAttribute="bottom" id="r7T-Lb-iVh"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="u3C-Ez-abp" firstAttribute="top" secondItem="c64-lD-pih" secondAttribute="top" id="Nm0-YU-hXo"/>
+                <constraint firstAttribute="bottom" secondItem="u3C-Ez-abp" secondAttribute="bottom" id="T6u-Ym-pIo"/>
+                <constraint firstItem="u3C-Ez-abp" firstAttribute="leading" secondItem="c64-lD-pih" secondAttribute="leading" id="oqx-Kx-uiH"/>
+                <constraint firstItem="ecK-fK-g4y" firstAttribute="trailing" secondItem="u3C-Ez-abp" secondAttribute="trailing" id="wTl-Xb-KYV"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ecK-fK-g4y"/>
+            <connections>
+                <outlet property="borderView" destination="kmG-e0-uoy" id="Gjc-od-6H3"/>
+                <outlet property="titleLabel" destination="vHo-p1-fQL" id="9cG-Sr-kMg"/>
+            </connections>
+            <point key="canvasLocation" x="-14" y="-158"/>
+        </collectionReusableView>
+    </objects>
+</document>

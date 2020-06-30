@@ -20,4 +20,8 @@ public struct Location {
         self.verticalAccuracy = verticalAccuracy
         self.timestamp = timestamp
     }
+
+    public var date: Date {
+        return timestamp.toDate()
+    }
 }

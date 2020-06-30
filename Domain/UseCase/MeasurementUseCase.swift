@@ -16,7 +16,7 @@ public protocol MeasurementUseCase {
     var locations: Observable<[Location]> { get }
 }
 
-final class MeasurementUseCaseImpl: MeasurementUseCase, Injectable, LocationDelegate {
+final class MeasurementUseCaseImpl: MeasurementUseCase, Injectable {
     struct Dependency {
         var location: LocationType
         var database: DatabaseType
@@ -152,7 +152,10 @@ final class MeasurementUseCaseImpl: MeasurementUseCase, Injectable, LocationDele
             return Disposables.create()
         }
     }
+}
 
+// MARK: - LocationDelegate
+extension MeasurementUseCaseImpl: LocationDelegate {
     func didUpdateLocations(_ locations: [Location]) {
         Logger.debug(locations)
         locationsSubject.onNext(locations)
