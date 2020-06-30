@@ -38,7 +38,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Required to get data from healthcare apps.</string>
+	<string>Please allow the use of the healthcare app.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Please allow the use of location information.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Please allow the use of location information.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please allow the use of location information.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -56,6 +62,10 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

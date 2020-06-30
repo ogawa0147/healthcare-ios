@@ -11,16 +11,24 @@ import RxSwift
 
 extension DomainResolver {
 
-    func resolveAuthorizationUseCaseImpl(health: HealthKitType) -> AuthorizationUseCaseImpl {
-        return AuthorizationUseCaseImpl(dependency: .init(health: health))
-    }
-
     func resolveDomainResolver() -> DomainResolver {
         return provideResolver()
     }
 
-    func resolveHomeTimelineCaseImpl(health: HealthKitType) -> HomeTimelineCaseImpl {
-        return HomeTimelineCaseImpl(dependency: .init(health: health))
+    func resolveHealthKitAuthorizationUseCaseImpl(health: HealthKitType, notifiers: DomainNotifier<Bool>) -> HealthKitAuthorizationUseCaseImpl {
+        return HealthKitAuthorizationUseCaseImpl(dependency: .init(health: health, notifiers: notifiers))
+    }
+
+    func resolveHomeTimelineCaseImpl(health: HealthKitType, notifiers: DomainNotifier<Bool>) -> HomeTimelineCaseImpl {
+        return HomeTimelineCaseImpl(dependency: .init(health: health, notifiers: notifiers))
+    }
+
+    func resolveLocationTimelineUseCaseImpl(database: DatabaseType) -> LocationTimelineUseCaseImpl {
+        return LocationTimelineUseCaseImpl(dependency: .init(database: database))
+    }
+
+    func resolveMeasurementUseCaseImpl(location: LocationType, database: DatabaseType) -> MeasurementUseCaseImpl {
+        return MeasurementUseCaseImpl(dependency: .init(location: location, database: database))
     }
 
 }

@@ -14,6 +14,6 @@ final class AppResolverImpl: AppResolver {
     }
 
     func provideUseCase() -> Domain.UseCase {
-        return UseCaseImpl(health: HealthKitProvider())
+        return UseCaseImpl(health: HealthKitService(), location: LocationService(), database: Database())
     }
 }

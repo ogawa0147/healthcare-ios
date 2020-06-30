@@ -3,7 +3,7 @@ import Domain
 
 final class HomeActivityOfMonthView: UIView {
     struct Dependency {
-        let element: Domain.QuantitySampleOfMonth
+        let element: Domain.HealthKitQuantitySample
     }
 
     @IBOutlet weak private var contentView: UIView!
@@ -39,7 +39,7 @@ final class HomeActivityOfMonthView: UIView {
     }
 
     func bind(_ dependency: Dependency) {
-        switch dependency.element.quantityTypeId {
+        switch dependency.element.type {
         case .stepCount:
             typeImageView.image = Asset.Assets.steps.image
             dateLabel.text = dependency.element.startDate.toYearMonthDayWeek()
@@ -58,8 +58,6 @@ final class HomeActivityOfMonthView: UIView {
             activityLabel.text = NumberFormatter.convert(of: dependency.element.sumQuantity, maximum: 2, divide: 1000.0)
             activityUnitLabel.text = MeasurementFormatter.unitName(of: .kilometers)
             timestampLabel.text = "\(dependency.element.startDate.toHourMinute()) - \(dependency.element.endDate.toHourMinute())"
-        default:
-            fatalError()
         }
         if dependency.element.sumQuantity.isZero {
             dateLabel.text = L10n.homeNoDataActivityText

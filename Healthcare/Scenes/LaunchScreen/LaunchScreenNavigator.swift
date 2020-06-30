@@ -26,12 +26,26 @@ final class LaunchScreenNavigatorImpl: LaunchScreenNavigator, Injectable {
         homeNavigationController.shadowNavigationBar()
         let homeNavigator = dependency.resolver.resolveHomeNavigatorImpl(navigationController: homeNavigationController)
 
+        let locationNavigationController = UINavigationController()
+        locationNavigationController.tabBarItem = UITabBarItem(title: L10n.tabBarLocationTitle, image: nil, selectedImage: nil)
+        locationNavigationController.shadowNavigationBar()
+        let locationNavigator = dependency.resolver.resolveLocationNavigatorImpl(navigationController: locationNavigationController)
+
+        let measurementNavigationController = UINavigationController()
+        measurementNavigationController.tabBarItem = UITabBarItem(title: L10n.tabBarMeasurementTitle, image: nil, selectedImage: nil)
+        measurementNavigationController.shadowNavigationBar()
+        let measurementNavigator = dependency.resolver.resolveMeasurementNavigatorImpl(navigationController: measurementNavigationController)
+
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
-            homeNavigationController
+            homeNavigationController,
+            locationNavigationController,
+            measurementNavigationController
         ]
 
         homeNavigator.toMain()
+        locationNavigator.toMain()
+        measurementNavigator.toMain()
 
         let previousViewController = dependency.window?.rootViewController
         dependency.window?.rootViewController = tabBarController

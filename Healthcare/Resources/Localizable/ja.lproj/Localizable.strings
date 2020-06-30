@@ -1,6 +1,15 @@
 // TabBar
-"TabBarHomeTitle" = "Home";
+"TabBarHomeTitle" = "ホーム";
+"TabBarLocationTitle" = "タイムライン";
+"TabBarMeasurementTitle" = "測定";
 
 // Home
 "HomeTitle" = "ホーム";
 "HomeNoDataActivityText" = "データなし";
+
+// Location
+"LocationTitle" = "タイムライン";
+"LocationNoDataText" = "未測定のため、タイムラインデータが存在しないようです。";
+
+// Measurement
+"MeasurementTitle" = "測定";

@@ -36,11 +36,6 @@ Sync certificates and profiles across team using git
 fastlane ios versions
 ```
 Show current command version
-### ios update
-```
-fastlane ios update
-```
-Update command version
 
 ----
 

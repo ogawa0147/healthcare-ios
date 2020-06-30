@@ -2,7 +2,7 @@ import UIKit
 import SwiftDate
 import Firebase
 import FirebaseCrashlytics
-import RxSwift
+import GoogleMaps
 import Environments
 import Logger
 
@@ -23,6 +23,10 @@ final class Application {
 
     func configureSwiftDate() {
         SwiftDate.defaultRegion = Region(calendar: Calendars.gregorian, zone: Zones.current, locale: Locales.current)
+    }
+
+    func configureGoogleService() {
+        GMSServices.provideAPIKey(Constants.GoogleService.apiKey)
     }
 
     func configureFirebaseApp() {

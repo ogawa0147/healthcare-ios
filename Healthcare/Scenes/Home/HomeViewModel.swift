@@ -7,7 +7,7 @@ import Domain
 final class HomeViewModel: ViewModelType, Injectable {
     struct Dependency {
         let navigator: HomeNavigator
-        let authorizationUseCase: AuthorizationUseCase
+        let authorizationUseCase: HealthKitAuthorizationUseCase
         let homeTimelineUseCase: HomeTimelineUseCase
     }
     struct Input {
@@ -15,9 +15,9 @@ final class HomeViewModel: ViewModelType, Injectable {
         let refreshTrigger: Driver<Void>
     }
     struct Output {
-        let stepCountOfMonth: Driver<Domain.QuantitySampleOfMonth>
-        let distanceWalkingRunningOfMonth: Driver<Domain.QuantitySampleOfMonth>
-        let distanceCyclingOfMonth: Driver<Domain.QuantitySampleOfMonth>
+        let stepCountOfMonth: Driver<Domain.HealthKitQuantitySample>
+        let distanceWalkingRunningOfMonth: Driver<Domain.HealthKitQuantitySample>
+        let distanceCyclingOfMonth: Driver<Domain.HealthKitQuantitySample>
         let refreshing: Driver<Bool>
         let errors: Driver<Domain.DomainError>
     }

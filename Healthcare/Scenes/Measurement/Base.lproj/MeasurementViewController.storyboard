@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Measurement View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="MeasurementViewController" id="BYZ-38-t0r" customClass="MeasurementViewController" customModule="Healthcare" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JVa-w9-U60">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="NUP-gf-hUx">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="495"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzx-xF-exV" customClass="GoogleMapView" customModule="Healthcare" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="Yzx-xF-exV" secondAttribute="height" multiplier="1:1" id="8Oe-ZG-qaV"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZH-Xc-L5Z">
+                                                <rect key="frame" x="0.0" y="385" width="375" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="J8q-xs-1pu"/>
+                                                </constraints>
+                                                <state key="normal" title="開始"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bb5-G4-nvG">
+                                                <rect key="frame" x="0.0" y="445" width="375" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="Ppg-Hf-7y1"/>
+                                                </constraints>
+                                                <state key="normal" title="終了"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="NUP-gf-hUx" firstAttribute="top" secondItem="JVa-w9-U60" secondAttribute="top" id="4zj-Kn-QKs"/>
+                                    <constraint firstAttribute="bottom" secondItem="NUP-gf-hUx" secondAttribute="bottom" id="BPx-5L-m4u"/>
+                                    <constraint firstAttribute="trailing" secondItem="NUP-gf-hUx" secondAttribute="trailing" id="Ik6-B1-NHa"/>
+                                    <constraint firstItem="NUP-gf-hUx" firstAttribute="leading" secondItem="JVa-w9-U60" secondAttribute="leading" id="Z8Y-nk-KSV"/>
+                                    <constraint firstItem="NUP-gf-hUx" firstAttribute="width" secondItem="JVa-w9-U60" secondAttribute="width" id="jak-qr-KUF"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" name="DarkTheme"/>
+                        <constraints>
+                            <constraint firstItem="JVa-w9-U60" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="6FN-Gx-KiH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JVa-w9-U60" secondAttribute="trailing" id="RdE-zS-8mh"/>
+                            <constraint firstItem="NUP-gf-hUx" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="Rl2-Q4-W3C"/>
+                            <constraint firstItem="JVa-w9-U60" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SpT-8x-dd5"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="JVa-w9-U60" secondAttribute="bottom" id="ZZU-9u-Jo8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentView" destination="NUP-gf-hUx" id="KZ9-P8-Me8"/>
+                        <outlet property="mapView" destination="Yzx-xF-exV" id="XZ3-fe-v7Q"/>
+                        <outlet property="scrollView" destination="JVa-w9-U60" id="hd9-C0-K2e"/>
+                        <outlet property="startButton" destination="mZH-Xc-L5Z" id="IHb-ni-urz"/>
+                        <outlet property="stopButton" destination="Bb5-G4-nvG" id="MA8-mV-sBv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="DarkTheme">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

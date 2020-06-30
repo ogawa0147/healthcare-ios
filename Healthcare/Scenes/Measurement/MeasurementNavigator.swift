@@ -2,11 +2,11 @@ import UIKit
 import DIKit
 import RxSwift
 
-protocol HomeNavigator {
+protocol MeasurementNavigator {
     func toMain()
 }
 
-final class HomeNavigatorImpl: HomeNavigator, Injectable {
+final class MeasurementNavigatorImpl: MeasurementNavigator, Injectable {
     struct Dependency {
         let resolver: AppResolver
         let navigationController: UINavigationController
@@ -20,7 +20,7 @@ final class HomeNavigatorImpl: HomeNavigator, Injectable {
 
     func toMain() {
         let usecase = dependency.resolver.provideUseCase()
-        let viewController = dependency.resolver.resolveHomeViewController(navigator: self, authorizationUseCase: usecase.make(), homeTimelineUseCase: usecase.make())
+        let viewController = dependency.resolver.resolveMeasurementViewController(navigator: self, measurementUseCase: usecase.make())
         dependency.navigationController.pushViewController(viewController, animated: true)
     }
 }

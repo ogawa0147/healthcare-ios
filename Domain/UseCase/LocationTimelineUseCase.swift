@@ -4,26 +4,28 @@ import RxSwift
 import Action
 import Logger
 
-public protocol AuthorizationUseCase {
+public protocol LocationTimelineUseCase {
     var refreshTrigger: PublishSubject<Void> { get }
 
     var refreshing: Observable<Bool> { get }
     var errors: Observable<Error> { get }
 
-    var authorized: Observable<Bool> { get }
+    var locations: Observable<[Location]> { get }
 }
 
-final class AuthorizationUseCaseImpl: AuthorizationUseCase, Injectable {
+final class LocationTimelineUseCaseImpl: LocationTimelineUseCase, Injectable {
     struct Dependency {
-        let health: HealthKitType
+        var database: DatabaseType
     }
 
     private let disposeBag = DisposeBag()
 
     public let refreshTrigger: PublishSubject<Void> = .init()
+
     public let refreshing: Observable<Bool>
     public let errors: Observable<Error>
-    public let authorized: Observable<Bool>
+
+    public let locations: Observable<[Location]>
 
     init(dependency: Dependency) {
         let refreshingSubject = BehaviorSubject<Bool>(value: false)
@@ -32,23 +34,12 @@ final class AuthorizationUseCaseImpl: AuthorizationUseCase, Injectable {
         let errorSubject = PublishSubject<Error>()
         self.errors = errorSubject.asObservable()
 
-        let authorizedSubject = BehaviorSubject<Bool>(value: false)
-        self.authorized = authorizedSubject.asObservable()
+        let locationsSubject = PublishSubject<[Location]>()
+        self.locations = locationsSubject.asObservable()
 
-        let refreshAction: Action<Void, Bool> = Action { _ in
-            return Observable.create { observer in
-                dependency.health.requestAuthorization { error, result in
-                    if result {
-                        observer.onNext(result)
-                        observer.onCompleted()
-                    } else {
-                        Logger.error(error?.convertToDomainError() ?? HealthKitError.notAuthorization)
-                        observer.onNext(result)
-                        observer.onCompleted()
-                    }
-                }
-                return Disposables.create()
-            }
+        let refreshAction: Action<Void, [Location]> = Action { _ in
+            let locations = dependency.database.locationDatabase.findAll()
+            return .just(locations)
         }
 
         refreshTrigger
@@ -56,7 +47,7 @@ final class AuthorizationUseCaseImpl: AuthorizationUseCase, Injectable {
             .disposed(by: disposeBag)
 
         refreshAction.elements
-            .subscribe(onNext: authorizedSubject.onNext)
+            .subscribe(onNext: locationsSubject.onNext)
             .disposed(by: disposeBag)
 
         refreshAction.executing

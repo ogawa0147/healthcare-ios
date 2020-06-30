@@ -1,6 +1,15 @@
 // TabBar
 "TabBarHomeTitle" = "Home";
+"TabBarLocationTitle" = "Timeline";
+"TabBarMeasurementTitle" = "Measurement";
 
 // Home
 "HomeTitle" = "Home";
 "HomeNoDataActivityText" = "No data";
+
+// Location
+"LocationTitle" = "Timeline";
+"LocationNoDataText" = "Since it has not been measured, it seems that there is no timeline data.";
+
+// Measurement
+"MeasurementTitle" = "Measurement";

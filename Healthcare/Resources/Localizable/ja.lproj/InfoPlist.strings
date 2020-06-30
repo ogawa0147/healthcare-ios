@@ -1,1 +1,4 @@
-"NSHealthShareUsageDescription" = "ヘルスケアアプリからデータをもらうために必要です。";
+"NSHealthShareUsageDescription" = "ヘルスケアアプリの使用を許可してください。";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "位置情報の使用を許可してください。";
+"NSLocationAlwaysUsageDescription" = "位置情報の使用を許可してください。";
+"NSLocationWhenInUseUsageDescription" = "位置情報の使用を許可してください。";
