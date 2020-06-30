@@ -20,5 +20,8 @@ public final class Constants {
         public static var apiKey: String {
             return contents["API_KEY"] as? String ?? ""
         }
+        public static var staticMapURL: URL {
+            return URL(string: "https://maps.googleapis.com/maps/api/staticmap")!
+        }
     }
 }

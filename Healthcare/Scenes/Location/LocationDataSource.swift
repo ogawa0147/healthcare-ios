@@ -17,7 +17,7 @@ final class LocationDataSource: NSObject, UICollectionViewDataSource, RxCollecti
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: LocationItemCell = collectionView.dequeueReusableCell(at: indexPath)
-        cell.bind(.init(element: items[indexPath.section].elements[indexPath.row]))
+        cell.bind(.init(elements: items[indexPath.section].elements))
         return cell
     }
 

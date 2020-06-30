@@ -3,6 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,25 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="492"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="n0y-RM-hes">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="483"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vP-Un-ZjL">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="483"/>
-                                        <subviews>
-                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjZ-Sl-Lv2">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="483"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="cjZ-Sl-Lv2" secondAttribute="height" multiplier="343:136" priority="250" id="xOR-Yk-tAB"/>
-                                                </constraints>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1vP-Un-ZjL" customClass="GoogleStaticMapView" customModule="Healthcare" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                        <color key="backgroundColor" name="DarkTheme"/>
                                         <constraints>
-                                            <constraint firstItem="cjZ-Sl-Lv2" firstAttribute="top" secondItem="1vP-Un-ZjL" secondAttribute="top" id="0ek-54-cQq"/>
-                                            <constraint firstAttribute="bottom" secondItem="cjZ-Sl-Lv2" secondAttribute="bottom" id="90I-B9-he8"/>
-                                            <constraint firstAttribute="trailing" secondItem="cjZ-Sl-Lv2" secondAttribute="trailing" id="dHD-nI-Wu5"/>
-                                            <constraint firstItem="cjZ-Sl-Lv2" firstAttribute="leading" secondItem="1vP-Un-ZjL" secondAttribute="leading" id="rlg-kz-zfg"/>
+                                            <constraint firstAttribute="width" secondItem="1vP-Un-ZjL" secondAttribute="height" multiplier="1:1" id="MeX-J4-fdR"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -62,7 +51,15 @@
                 <constraint firstAttribute="bottom" secondItem="C8N-g1-OQ8" secondAttribute="bottom" id="wlr-Vv-EwG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="Xmm-7W-UoC"/>
+            <connections>
+                <outlet property="mapView" destination="1vP-Un-ZjL" id="AFh-sO-Jk7"/>
+            </connections>
             <point key="canvasLocation" x="-109.59999999999999" y="-157.42128935532236"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <namedColor name="DarkTheme">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

@@ -82,6 +82,7 @@ targets:
       - carthage: DIKit
       - carthage: Action
       - carthage: SwiftDate
+      - carthage: Nuke
     prebuildScripts:
       - name: Run LicensePlist
         script: |

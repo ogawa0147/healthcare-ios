@@ -154,6 +154,8 @@ name: LicensePlist, nameSpecified: , owner: mono0926, version: 2.8.1
 
 name: LicensePlist, nameSpecified: , owner: mono0926, version: 2.8.1
 
+name: Nuke, nameSpecified: , owner: kean, version: 9.1.1
+
 name: realm-cocoa, nameSpecified: , owner: realm, version: v5.1.0
 
 name: RxDataSources, nameSpecified: , owner: RxSwiftCommunity, version: 4.0.1

@@ -1,25 +1,15 @@
 import UIKit
-import RxSwift
-import RxCocoa
 
 final class LocationItemCell: UICollectionViewCell, NibReusable {
     struct Dependency {
-        let element: LocationViewModel.Element
+        let elements: [LocationViewModel.Element]
     }
 
-    @IBOutlet weak private var mapView: GoogleMapView!
-    @IBOutlet weak private var useButtonTitleLabel: UILabel!
-
-    private var disposeBag = DisposeBag()
+    @IBOutlet weak private var mapView: GoogleStaticMapView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         commonInit()
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
     }
 
     override func layoutSubviews() {
@@ -31,5 +21,10 @@ final class LocationItemCell: UICollectionViewCell, NibReusable {
     }
 
     func bind(_ dependency: Dependency) {
+        let coordinates = dependency.elements.map { $0.coordinate }
+        let polyline = Polyline(coordinates: coordinates)
+        let encodedPolyline: String = polyline.encodedPolyline
+
+        mapView.bind(encodedPolyline: encodedPolyline, startLatitude: 0, startLongitude: 0, endLatitude: 0, endLongitude: 0)
     }
 }

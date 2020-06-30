@@ -1,4 +1,5 @@
 import Foundation
+import CoreLocation
 
 public struct Location {
     public let id: ID
@@ -9,6 +10,8 @@ public struct Location {
     public let horizontalAccuracy: Double
     public let verticalAccuracy: Double
     public let timestamp: Int64
+    public let sampledAt: Date
+    public let coordinate: CLLocationCoordinate2D
 
     public init(id: ID, latitude: Double, longitude: Double, altitude: Double, speed: Double, verticalAccuracy: Double, horizontalAccuracy: Double, timestamp: Int64) {
         self.id = id
@@ -19,9 +22,7 @@ public struct Location {
         self.horizontalAccuracy = horizontalAccuracy
         self.verticalAccuracy = verticalAccuracy
         self.timestamp = timestamp
-    }
-
-    public var date: Date {
-        return timestamp.toDate()
+        self.sampledAt = timestamp.toDate()
+        self.coordinate = .init(latitude: latitude, longitude: longitude)
     }
 }

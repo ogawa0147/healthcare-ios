@@ -25,9 +25,7 @@ final class LocationViewModel: ViewModelType, Injectable {
         let title: String?
         let elements: [Element]
     }
-    struct Element {
-        let element: Domain.Location
-    }
+    typealias Element = Domain.Location
 
     init(dependency: Dependency) {
         self.dependency = dependency
@@ -37,19 +35,16 @@ final class LocationViewModel: ViewModelType, Injectable {
         let refreshing = dependency.locationTimelineUseCase.refreshing
         let errors = dependency.locationTimelineUseCase.errors.map { $0.catchDomainError() }
         let sections: Observable<[Section]> = dependency.locationTimelineUseCase.locations.map { locations in
-            let elements: [Element] = locations.map { location in
-                return .init(element: location)
-            }
-            let groupedElements: [String: [Element]] = Dictionary(grouping: elements) { element -> String in
-                return element.element.date.toYearMonthDay()
+            let elements: [String: [Element]] = Dictionary(grouping: locations) { location -> String in
+                return location.sampledAt.toYearMonthDay()
             }
             .reduce(into: [String: [Element]]()) { groups, elements in
-                groups[elements.key] = elements.value.sorted { $0.element.date < $1.element.date }
+                groups[elements.key] = elements.value.sorted { $0.sampledAt < $1.sampledAt }
             }
-            let sortedDateList = groupedElements.keys.sorted(by: { $0 > $1 })
+            let sortedDateList = elements.keys.sorted(by: { $0 > $1 })
             var sections: [Section] = []
             sortedDateList.forEach { group in
-                sections.append(.init(title: group, elements: groupedElements[group] ?? []))
+                sections.append(.init(title: group, elements: elements[group] ?? []))
             }
             return sections
         }
