@@ -177,7 +177,6 @@ targets:
       - target: Healthcare
       - carthage: Quick
       - carthage: Nimble
-      - carthage: OHHTTPStubs
   HealthcareUITests:
     type: bundle.ui-testing
     platform: iOS
